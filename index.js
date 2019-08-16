@@ -27,23 +27,23 @@ function generateQuestionHtml (game) {
     <h2 class='question'>${dataTable[game.questionNumber].question}</h2>
     <form>
         <div>
-            <input type="radio" name="option" id="option one">
+            <input type="radio" name="option" id="option one" required>
             <label for='option one'>${dataTable[game.questionNumber].answer1}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option two">
+            <input type="radio" name="option" id="option two" required>
             <label for="option two">${dataTable[game.questionNumber].answer2}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option three">
+            <input type="radio" name="option" id="option three" required>
             <label for="option three">${dataTable[game.questionNumber].answer3}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option four">
+            <input type="radio" name="option" id="option four" required>
             <label for="option four">${dataTable[game.questionNumber].answer4}</label>
         </div>
         <div>
-            <button type='button' class='submit-answer-button'>Submit answer</button>
+            <button type='submit' class='submit-answer-button'>Submit answer</button>
         </div>
     </form>
     `
@@ -58,15 +58,16 @@ function renderQuestion (game) {
 /////////////
 
 
-function handlesFormSubmit () {
-  $('.submit-answer-button').on('click', function(event) {
+function handleSubmit(game) {
+  $('.quiz-form').on('submit', 'form', function(event) {
     event.preventDefault();
-    console.log('inside form submit');
 
     let userAnswer = $('input:checked');
     let userAnswerValue = userAnswer.val();
-    console.log(userAnswer);
     console.log(userAnswerValue);
+    if (userAnswerValue === dataTable[game.questionNumber].correctAnswer) {
+      console.log('you got it right');
+    }
   });
 
   // preventDefault
@@ -109,8 +110,8 @@ function restartGame () {
 
 function main() {
   let currentGame = game();
-  startGame (currentGame);
-  handlesFormSubmit ();
+  startGame(currentGame);
+  handleSubmit(currentGame);
 }
 
 $(main);
