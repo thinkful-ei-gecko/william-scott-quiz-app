@@ -111,10 +111,12 @@ function feedbackNextSubmit (game) {
   $('.quiz-form').on('submit', '.form-next-question', function(event) {
     event.preventDefault();
     game.incrementQuestion();
+    displayScore(game);
     if (game.questionNumber === dataTable.length) {
       renderFinalResult(game);
     } else {
       renderQuestion(game);
+      displayQuestionCount(game);
     }
   });
 }
