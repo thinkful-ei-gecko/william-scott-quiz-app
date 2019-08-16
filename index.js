@@ -16,8 +16,21 @@ function game(questionNumber = 0, score = 0) {
     },
     incrementQuestion() {
       this.questionNumber++;
+    },
+    resetGame() {
+      this.score = 0;
+      this.questionNumber = 0;
     }
   }
+}
+
+function displayQuestionCount(game) {
+  let questionNumber = game.questionNumber + 1;
+  $('.question-number').text(`Question ${questionNumber} out of ${dataTable.length}`);
+}
+
+function displayScore(game) {
+  $('.score').text(`Your score: ${game.score}`);
 }
 
 /////////////
@@ -64,14 +77,12 @@ function handleSubmit(game) {
     let userAnswer = $('input:checked');
     let userAnswerValue = userAnswer.val();
     if (userAnswerValue === dataTable[game.questionNumber].correctAnswer) {
+      game.incrementScore();
       $('.quiz-form').html(showRightAnswer());
     } else {
       $('.quiz-form').html(showWrongAnswer(game));
     }
   });
-
-  // preventDefault
-  // call showRight || showWrong
 }
 
 function showWrongAnswer (game) {
@@ -115,7 +126,7 @@ function finalResultHtml (game) {
     <form class='form-final-result'>
         <h2>You Got ${game.score} Out Of ${game.questionNumber}</h2>
         <p>Do You Want to Try Again?</p>
-        <button type='submit' class='next-button'>Restart Quiz</button>
+        <button type='submit' class='restart-button'>Restart Quiz</button>
     </form>
     `;
 }
@@ -126,15 +137,23 @@ function renderFinalResult (game) {
 
 /////////////
 
-function restartGame () {
+function restartGame(game) {
+  $('.quiz-form').on('submit', '.form-final-result', function(event) {
+    event.preventDefault();
+    game.resetGame();
+    renderQuestion(game);
+  })
 
 }
 
 function main() {
   let currentGame = game();
+  displayQuestionCount(currentGame);
+  displayScore(currentGame);
   startGame(currentGame);
   handleSubmit(currentGame);
   feedbackNextSubmit(currentGame);
+  restartGame(currentGame);
 }
 
 $(main);
