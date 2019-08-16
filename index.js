@@ -12,10 +12,10 @@ function game(questionNumber = 0, score = 0) {
     questionNumber,
     score,
     incrementScore() {
-      score++;
+      this.score++;
     },
     incrementQuestion() {
-      questionNumber++;
+      this.questionNumber++;
     }
   }
 }
@@ -25,21 +25,21 @@ function game(questionNumber = 0, score = 0) {
 function generateQuestionHtml (game) {
   return `
     <h2 class='question'>${dataTable[game.questionNumber].question}</h2>
-    <form>
+    <form class = 'questions'>
         <div>
-            <input type="radio" name="option" id="option one" required>
+            <input type="radio" name="option" id="option one" value="${dataTable[game.questionNumber].answer1}" required>
             <label for='option one'>${dataTable[game.questionNumber].answer1}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option two" required>
+            <input type="radio" name="option" id="option two" value="${dataTable[game.questionNumber].answer2}" required>
             <label for="option two">${dataTable[game.questionNumber].answer2}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option three" required>
+            <input type="radio" name="option" id="option three" value="${dataTable[game.questionNumber].answer3}" required>
             <label for="option three">${dataTable[game.questionNumber].answer3}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option four" required>
+            <input type="radio" name="option" id="option four" value="${dataTable[game.questionNumber].answer4}" required>
             <label for="option four">${dataTable[game.questionNumber].answer4}</label>
         </div>
         <div>
@@ -59,14 +59,14 @@ function renderQuestion (game) {
 
 
 function handleSubmit(game) {
-  $('.quiz-form').on('submit', 'form', function(event) {
+  $('.quiz-form').on('submit', '.questions', function(event) {
     event.preventDefault();
-
     let userAnswer = $('input:checked');
     let userAnswerValue = userAnswer.val();
-    console.log(userAnswerValue);
     if (userAnswerValue === dataTable[game.questionNumber].correctAnswer) {
-      console.log('you got it right');
+      $('.quiz-form').html(showRightAnswer());
+    } else {
+      $('.quiz-form').html(showWrongAnswer(game));
     }
   });
 
@@ -76,9 +76,11 @@ function handleSubmit(game) {
 
 function showWrongAnswer (game) {
   return `
-    <h2>You Got This Wrong</h2>
-    <p>The correct answer is ${dataTable[game.questionNumber].correctAnswer}</p>
-    <button type='button' class='next-button'>Next</button>
+    <form class='form-next-question'>
+        <h2>You Got This Wrong</h2>
+        <p>The correct answer is ${dataTable[game.questionNumber].correctAnswer}</p>
+        <button type='submit' class='next-button'>Next</button>
+    </form>
     `;
 
 }
@@ -87,19 +89,39 @@ function showWrongAnswer (game) {
 
 function showRightAnswer () {
   return `
-    <h2>You Got This Right</h2>
-    <button type='button' class='next-button'>Next</button>
+    <form class='form-next-question'>
+        <h2>You Got This Right</h2>
+        <button type='submit' class='next-button'>Next</button>
+    </form>
     `;
 }
 
-function feedbackNextSubmit () {
-
+function feedbackNextSubmit (game) {
+  $('.quiz-form').on('submit', '.form-next-question', function(event) {
+    event.preventDefault();
+    game.incrementQuestion();
+    if (game.questionNumber === dataTable.length) {
+      renderFinalResult(game);
+    } else {
+      renderQuestion(game);
+    }
+  });
 }
 
 /////////////
 
-function renderFinalResult () {
+function finalResultHtml (game) {
+  return `
+    <form class='form-final-result'>
+        <h2>You Got ${game.score} Out Of ${game.questionNumber}</h2>
+        <p>Do You Want to Try Again?</p>
+        <button type='submit' class='next-button'>Restart Quiz</button>
+    </form>
+    `;
+}
 
+function renderFinalResult (game) {
+  $('.quiz-form').html(finalResultHtml(game));
 }
 
 /////////////
@@ -112,6 +134,7 @@ function main() {
   let currentGame = game();
   startGame(currentGame);
   handleSubmit(currentGame);
+  feedbackNextSubmit(currentGame);
 }
 
 $(main);
