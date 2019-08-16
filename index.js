@@ -7,6 +7,7 @@ function startGame (game) {
   });
 }
 
+
 function game(questionNumber = 0, score = 0) {
   return {
     questionNumber,
@@ -21,19 +22,20 @@ function game(questionNumber = 0, score = 0) {
       this.score = 0;
       this.questionNumber = 0;
     }
-  }
+  };
 }
+
 
 function displayQuestionCount(game) {
   let questionNumber = game.questionNumber + 1;
   $('.question-number').text(`Question ${questionNumber} out of ${dataTable.length}`);
 }
 
+
 function displayScore(game) {
   $('.score').text(`Your score: ${game.score}`);
 }
 
-/////////////
 
 function generateQuestionHtml (game) {
   return `
@@ -58,17 +60,15 @@ function generateQuestionHtml (game) {
         <div>
             <button type='submit' class='submit-answer-button'>Submit answer</button>
         </div>
-    </form>
-    `
+    </form>`;
 }
 
-/////////////
 
 function renderQuestion (game) {
   $('.quiz-form').html(generateQuestionHtml(game));
+  $('body').removeClass();
+  $('body').addClass(dataTable[game.questionNumber].backgroundImageClass);
 }
-
-/////////////
 
 
 function handleSubmit(game) {
@@ -85,33 +85,32 @@ function handleSubmit(game) {
   });
 }
 
+
 function showWrongAnswer (game) {
   return `
     <form class='form-next-question'>
         <h2>You Got This Wrong</h2>
         <p>The correct answer is ${dataTable[game.questionNumber].correctAnswer}</p>
         <button type='submit' class='next-button'>Next</button>
-    </form>
-    `;
-
+    </form>`;
 }
 
-/////////////
 
 function showRightAnswer () {
   return `
     <form class='form-next-question'>
         <h2>You Got This Right</h2>
         <button type='submit' class='next-button'>Next</button>
-    </form>
-    `;
+    </form>`;
 }
+
 
 function feedbackNextSubmit (game) {
   $('.quiz-form').on('submit', '.form-next-question', function(event) {
     event.preventDefault();
     game.incrementQuestion();
     displayScore(game);
+
     if (game.questionNumber === dataTable.length) {
       renderFinalResult(game);
     } else {
@@ -121,7 +120,6 @@ function feedbackNextSubmit (game) {
   });
 }
 
-/////////////
 
 function finalResultHtml (game) {
   return `
@@ -129,23 +127,20 @@ function finalResultHtml (game) {
         <h2>You Got ${game.score} Out Of ${game.questionNumber}</h2>
         <p>Do You Want to Try Again?</p>
         <button type='submit' class='restart-button'>Restart Quiz</button>
-    </form>
-    `;
+    </form>`;
 }
 
 function renderFinalResult (game) {
   $('.quiz-form').html(finalResultHtml(game));
 }
 
-/////////////
 
 function restartGame(game) {
   $('.quiz-form').on('submit', '.form-final-result', function(event) {
     event.preventDefault();
     game.resetGame();
     renderQuestion(game);
-  })
-
+  });
 }
 
 function main() {
