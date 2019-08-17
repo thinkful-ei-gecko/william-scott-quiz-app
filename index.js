@@ -42,20 +42,20 @@ function generateQuestionHtml (game, dataTable) {
     <h2 class='question'>${dataTable[game.questionNumber].question}</h2>
     <form class = 'questions'>
         <div>
-            <input type="radio" name="option" id="option one" value="${dataTable[game.questionNumber].answers[0]}" required>
-            <label for='option one'>${dataTable[game.questionNumber].answers[0]}</label>
+            <input type="radio" name="option" id="option one" value="${dataTable[game.questionNumber].answers[answerIndexArray[0]]}" required>
+            <label for='option one'>${dataTable[game.questionNumber].answers[answerIndexArray[0]]}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option two" value="${dataTable[game.questionNumber].answers[1]}" required>
-            <label for="option two">${dataTable[game.questionNumber].answers[1]}</label>
+            <input type="radio" name="option" id="option two" value="${dataTable[game.questionNumber].answers[answerIndexArray[1]]}" required>
+            <label for="option two">${dataTable[game.questionNumber].answers[answerIndexArray[1]]}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option three" value="${dataTable[game.questionNumber].answers[2]}" required>
-            <label for="option three">${dataTable[game.questionNumber].answers[2]}</label>
+            <input type="radio" name="option" id="option three" value="${dataTable[game.questionNumber].answers[answerIndexArray[2]]}" required>
+            <label for="option three">${dataTable[game.questionNumber].answers[answerIndexArray[2]]}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option four" value="${dataTable[game.questionNumber].answers[3]}" required>
-            <label for="option four">${dataTable[game.questionNumber].answers[3]}</label>
+            <input type="radio" name="option" id="option four" value="${dataTable[game.questionNumber].answers[answerIndexArray[3]]}" required>
+            <label for="option four">${dataTable[game.questionNumber].answers[answerIndexArray[3]]}</label>
         </div>
         <div>
             <button type='submit' class='submit-answer-button'>Submit answer</button>
@@ -76,6 +76,7 @@ function handleSubmit(game, dataTable) {
     event.preventDefault();
     let userAnswer = $('input:checked');
     let userAnswerValue = userAnswer.val();
+
     if (userAnswerValue === dataTable[game.questionNumber].correctAnswer) {
       game.incrementScore();
       $('.quiz-form').html(showRightAnswer());
@@ -139,25 +140,26 @@ function restartGame(game, dataTable) {
   $('.quiz-form').on('submit', '.form-final-result', function(event) {
     event.preventDefault();
     game.resetGame();
-    dataTable = createDataTable(10, STORE);
-    shuffleAnswers(dataTable);
+    answerIndexArray = shuffleArray(answerIndexArray);
+    currentTable.length = 0;
+    populateDataTable(shuffleArray(questionIndexArray));
     renderQuestion(game, dataTable);
   });
 }
 
 
 function main() {
-  dataTable = createDataTable(10, STORE)
-  shuffleAnswers(dataTable)
+  populateDataTable(shuffleArray(questionIndexArray));
+  answerIndexArray = shuffleArray(answerIndexArray);
 
   let currentGame = game();
 
-  displayQuestionCount(currentGame, dataTable);
+  displayQuestionCount(currentGame, currentTable);
   displayScore(currentGame);
-  startGame(currentGame, dataTable); 
-  handleSubmit(currentGame, dataTable);
-  feedbackNextSubmit(currentGame, dataTable); 
-  restartGame(currentGame, dataTable);
+  startGame(currentGame, currentTable); 
+  handleSubmit(currentGame, currentTable);
+  feedbackNextSubmit(currentGame, currentTable); 
+  restartGame(currentGame, currentTable);
 }
 
 $(main);
