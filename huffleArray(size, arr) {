@@ -1,0 +1,71 @@
+[33mcommit 0ff4363531519673885e6738b27a549808934a15[m[33m ([m[1;36mHEAD -> [m[1;32mshuffle-array[m[33m, [m[1;31morigin/shuffle-array[m[33m)[m
+Author: Scott Schroeder <snschroeder89@gmail.com>
+Date:   Fri Aug 16 21:32:26 2019 -0500
+
+    randomized question and answer order
+
+[33mcommit 49b638ad31d7a7381bcc8f3df9debfc54db4d928[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: William Bae <wbae912@gmail.com>
+Date:   Fri Aug 16 14:42:37 2019 -0700
+
+    added more style rules
+
+[33mcommit 43065a83f961f9193be9d2fea222d07491f0871d[m
+Author: William Bae <wbae912@gmail.com>
+Date:   Fri Aug 16 14:28:39 2019 -0700
+
+    completed functions, revised dataStore, initial stying in CSS, added class to body in html
+
+[33mcommit 4a0f4003a113b67928b0a38f69ef7fc2c90398b6[m
+Author: Scott Schroeder <snschroeder89@gmail.com>
+Date:   Fri Aug 16 15:49:15 2019 -0500
+
+    more or less finished with quiz game logic
+
+[33mcommit 14ef182834978241ea4f13730e102121662df810[m
+Author: Scott Schroeder <snschroeder89@gmail.com>
+Date:   Fri Aug 16 15:34:33 2019 -0500
+
+    working on score and question counters
+
+[33mcommit d6a4e5434dec6899e41acaa509ecc2c930f3320a[m
+Author: William Bae <wbae912@gmail.com>
+Date:   Fri Aug 16 13:02:37 2019 -0700
+
+    worked on more functions
+
+[33mcommit cb279f20be70603bdfea432b982df00890da63b2[m
+Author: Scott Schroeder <snschroeder89@gmail.com>
+Date:   Fri Aug 16 14:17:40 2019 -0500
+
+    working on handling form submit
+
+[33mcommit 69b463e51e8c881e142e5ae4fa62a8715a895265[m
+Author: William Bae <wbae912@gmail.com>
+Date:   Fri Aug 16 11:43:18 2019 -0700
+
+    working on functions
+
+[33mcommit 0be82ea7856ef8b079694b6c392ccda51f38c532[m
+Author: Scott Schroeder <snschroeder89@gmail.com>
+Date:   Fri Aug 16 13:07:38 2019 -0500
+
+    added questions and answers
+
+[33mcommit f6077cdb0361190eb866be20d09c0b3e03ac6a7c[m
+Author: Scott Schroeder <snschroeder89@gmail.com>
+Date:   Fri Aug 16 11:45:58 2019 -0500
+
+    added function for start and render question
+
+[33mcommit 8fa4094cdb4b68ded8799fd270c4b2ebfe56e1cd[m
+Author: William Bae <wbae912@gmail.com>
+Date:   Fri Aug 16 08:54:13 2019 -0700
+
+    boiler plate html created and function skeletons defined in index.js
+
+[33mcommit c525cdd13db40750fba0d9be09890e3929b27a4b[m
+Author: William Bae <wbae912@gmail.com>
+Date:   Fri Aug 16 08:24:53 2019 -0700
+
+    initial commit

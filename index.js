@@ -139,35 +139,16 @@ function restartGame(game, dataTable) {
   $('.quiz-form').on('submit', '.form-final-result', function(event) {
     event.preventDefault();
     game.resetGame();
-    dataTable = shuffleArray(STORE);
+    dataTable = createDataTable(10, STORE);
     shuffleAnswers(dataTable);
     renderQuestion(game, dataTable);
   });
 }
 
 
-function shuffleArray(arr) {
-  let tempArr = [...arr];
-  let randomIndex;
-  let shuffledArr = [];
-  while (tempArr.length > 0) {
-    randomIndex = Math.floor(Math.random() * Math.floor(tempArr.length));
-    console.log(randomIndex)
-    shuffledArr.push(tempArr[randomIndex]);
-    tempArr.splice(randomIndex, 1);
-  }
-  return shuffledArr;
-}
-
-function shuffleAnswers(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    arr[i].answers = shuffleArray(arr[i].answers)
-  }
-}
-
 function main() {
-  dataTable = shuffleArray(STORE);
-  shuffleAnswers(dataTable);
+  dataTable = createDataTable(10, STORE)
+  shuffleAnswers(dataTable)
 
   let currentGame = game();
 

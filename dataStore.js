@@ -65,7 +65,43 @@ const STORE = [{
   ],
   correctAnswer: 'Castrate it',
   backgroundImageClass: 'missouri'
-}
+},
+{
+  question: 'Minnesota does not believe in fun. As such, they have outlawed what activity?',
+  answers: [
+    'Jousting',
+    'Oiled-pig catching contests',
+    'Dance parties involving more than 100 individuals',
+    'bicycle races',
+  ],
+  correctAnswer: 'Oiled-pig catching contests',
+  backgroundImageClass: 'minnesota'
+},
 ];
 
 let dataTable = [];
+
+function createDataTable(size, questionArr) {
+  return shuffleArray(size, questionArr);
+}
+
+
+function shuffleArray(size, arr) {
+  let tempArr = Array.from(arr);
+  let randomIndex;
+  let shuffledArr = [];
+  while (size < tempArr.length ? size > 0 : tempArr.length > 0) {
+    randomIndex = Math.floor(Math.random() * Math.floor(tempArr.length));
+    shuffledArr.push(tempArr[randomIndex]);
+    tempArr.splice(randomIndex, 1);
+    size--;
+  }
+  return shuffledArr;
+}
+
+
+function shuffleAnswers(dataTable) {
+  for (let i = 0; i < dataTable.length; i++) {
+    dataTable[i].answers = shuffleArray(4, dataTable[i].answers)
+  }
+}
