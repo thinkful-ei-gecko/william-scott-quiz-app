@@ -1,13 +1,13 @@
 'use strict';
 
-function startGame (game) {
+function startGame (game, dataTable) {
   $('.start-button').on('click', function(event) {
     $(this).closest('.quiz-start').remove();
-    renderQuestion(game);
+    renderQuestion(game, dataTable);
   });
 }
 
-
+//Factory function to initialize a new game
 function game(questionNumber = 0, score = 0) {
   return {
     questionNumber,
@@ -26,7 +26,7 @@ function game(questionNumber = 0, score = 0) {
 }
 
 
-function displayQuestionCount(game) {
+function displayQuestionCount(game, dataTable) {
   let questionNumber = game.questionNumber + 1;
   $('.question-number').text(`Question ${questionNumber} out of ${dataTable.length}`);
 }
@@ -37,25 +37,25 @@ function displayScore(game) {
 }
 
 
-function generateQuestionHtml (game) {
+function generateQuestionHtml (game, dataTable) {
   return `
     <h2 class='question'>${dataTable[game.questionNumber].question}</h2>
     <form class = 'questions'>
         <div>
-            <input type="radio" name="option" id="option one" value="${dataTable[game.questionNumber].answer1}" required>
-            <label for='option one'>${dataTable[game.questionNumber].answer1}</label>
+            <input type="radio" name="option" id="option one" value="${dataTable[game.questionNumber].answers[0]}" required>
+            <label for='option one'>${dataTable[game.questionNumber].answers[0]}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option two" value="${dataTable[game.questionNumber].answer2}" required>
-            <label for="option two">${dataTable[game.questionNumber].answer2}</label>
+            <input type="radio" name="option" id="option two" value="${dataTable[game.questionNumber].answers[1]}" required>
+            <label for="option two">${dataTable[game.questionNumber].answers[1]}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option three" value="${dataTable[game.questionNumber].answer3}" required>
-            <label for="option three">${dataTable[game.questionNumber].answer3}</label>
+            <input type="radio" name="option" id="option three" value="${dataTable[game.questionNumber].answers[2]}" required>
+            <label for="option three">${dataTable[game.questionNumber].answers[2]}</label>
         </div>
         <div>
-            <input type="radio" name="option" id="option four" value="${dataTable[game.questionNumber].answer4}" required>
-            <label for="option four">${dataTable[game.questionNumber].answer4}</label>
+            <input type="radio" name="option" id="option four" value="${dataTable[game.questionNumber].answers[3]}" required>
+            <label for="option four">${dataTable[game.questionNumber].answers[3]}</label>
         </div>
         <div>
             <button type='submit' class='submit-answer-button'>Submit answer</button>
@@ -64,14 +64,14 @@ function generateQuestionHtml (game) {
 }
 
 
-function renderQuestion (game) {
-  $('.quiz-form').html(generateQuestionHtml(game));
+function renderQuestion (game, dataTable) {
+  $('.quiz-form').html(generateQuestionHtml(game, dataTable));
   $('body').removeClass();
   $('body').addClass(dataTable[game.questionNumber].backgroundImageClass);
 }
 
 
-function handleSubmit(game) {
+function handleSubmit(game, dataTable) {
   $('.quiz-form').on('submit', '.questions', function(event) {
     event.preventDefault();
     let userAnswer = $('input:checked');
@@ -80,13 +80,13 @@ function handleSubmit(game) {
       game.incrementScore();
       $('.quiz-form').html(showRightAnswer());
     } else {
-      $('.quiz-form').html(showWrongAnswer(game));
+      $('.quiz-form').html(showWrongAnswer(game, dataTable));
     }
   });
 }
 
 
-function showWrongAnswer (game) {
+function showWrongAnswer (game, dataTable) {
   return `
     <form class='form-next-question'>
         <h2>You Got This Wrong</h2>
@@ -105,7 +105,7 @@ function showRightAnswer () {
 }
 
 
-function feedbackNextSubmit (game) {
+function feedbackNextSubmit (game, dataTable) {
   $('.quiz-form').on('submit', '.form-next-question', function(event) {
     event.preventDefault();
     game.incrementQuestion();
@@ -114,8 +114,8 @@ function feedbackNextSubmit (game) {
     if (game.questionNumber === dataTable.length) {
       renderFinalResult(game);
     } else {
-      renderQuestion(game);
-      displayQuestionCount(game);
+      renderQuestion(game, dataTable);
+      displayQuestionCount(game, dataTable);
     }
   });
 }
@@ -135,22 +135,48 @@ function renderFinalResult (game) {
 }
 
 
-function restartGame(game) {
+function restartGame(game, dataTable) {
   $('.quiz-form').on('submit', '.form-final-result', function(event) {
     event.preventDefault();
     game.resetGame();
-    renderQuestion(game);
+    dataTable = shuffleArray(STORE);
+    shuffleAnswers(dataTable);
+    renderQuestion(game, dataTable);
   });
 }
 
+
+function shuffleArray(arr) {
+  let tempArr = [...arr];
+  let randomIndex;
+  let shuffledArr = [];
+  while (tempArr.length > 0) {
+    randomIndex = Math.floor(Math.random() * Math.floor(tempArr.length));
+    console.log(randomIndex)
+    shuffledArr.push(tempArr[randomIndex]);
+    tempArr.splice(randomIndex, 1);
+  }
+  return shuffledArr;
+}
+
+function shuffleAnswers(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].answers = shuffleArray(arr[i].answers)
+  }
+}
+
 function main() {
+  dataTable = shuffleArray(STORE);
+  shuffleAnswers(dataTable);
+
   let currentGame = game();
-  displayQuestionCount(currentGame);
+
+  displayQuestionCount(currentGame, dataTable);
   displayScore(currentGame);
-  startGame(currentGame);
-  handleSubmit(currentGame);
-  feedbackNextSubmit(currentGame);
-  restartGame(currentGame);
+  startGame(currentGame, dataTable); 
+  handleSubmit(currentGame, dataTable);
+  feedbackNextSubmit(currentGame, dataTable); 
+  restartGame(currentGame, dataTable);
 }
 
 $(main);
