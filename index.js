@@ -139,6 +139,8 @@ function restartGame(game) {
   $('.quiz-form').on('submit', '.form-final-result', function(event) {
     event.preventDefault();
     game.resetGame();
+    displayQuestionCount(game);
+    displayScore(game);
     renderQuestion(game);
   });
 }
