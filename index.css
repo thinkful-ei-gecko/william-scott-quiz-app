@@ -85,6 +85,10 @@ label {
     background-color: #BF0A30
 }
 
+fieldset {
+    border: none;
+}
+
 button {
     width: 30%;
     display: block;
@@ -174,6 +178,7 @@ button:hover, button:focus {
 
     header {
         margin-top: 120px;
+        margin-bottom: 20px;
     }
 
     .question-number, .score {
@@ -182,6 +187,11 @@ button:hover, button:focus {
 
     .start-quiz {
         font-size: 30px;
+    }
+
+    .feedback, .reset-prompt {
+        font-size: 26px;
+        font-weight: bold;
     }
 }
 
@@ -203,6 +213,7 @@ button:hover, button:focus {
 
     header {
         margin-top: 150px;
+        margin-bottom: 20px;
     }
 
     .question-number, .score {
@@ -211,5 +222,10 @@ button:hover, button:focus {
 
     .start-quiz {
         font-size: 34px;
+    }
+
+    .feedback, .reset-prompt {
+        font-size: 30px;
+        font-weight: bold;
     }
 }
