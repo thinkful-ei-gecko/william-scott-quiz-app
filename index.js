@@ -140,6 +140,8 @@ function restartGame(game, dataTable) {
   $('.quiz-form').on('submit', '.form-final-result', function(event) {
     event.preventDefault();
     game.resetGame();
+    displayQuestionCount(game, dataTable);
+    displayScore(game)
     answerIndexArray = shuffleArray(answerIndexArray);
     currentTable.length = 0;
     populateDataTable(shuffleArray(questionIndexArray));
