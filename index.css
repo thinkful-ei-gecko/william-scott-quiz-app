@@ -8,38 +8,14 @@ header {
     font-size: 20px;
     color: white;
     text-shadow: 0 1px 1px black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
-    margin-top: 180px;
+    margin-top: 60px;
 }
 
 main {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
-    text-align: center;
     text-shadow: 0 1px 1px black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-button {
-    padding: 20px;
-    border: none;
-    background-color: #095ee8;
-    color: #ffffff;
-    font-size: 18px;
-    text-transform: uppercase;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 40px
-}
-button:hover, button:focus {
-    background-color: #BF0A30;
-    color: #ffffff;
 }
 
 input {
@@ -60,9 +36,67 @@ input:checked {
     border: 8px solid #BF0A30;
 }
 
-.score-question {
-    list-style-type: none;
-    font-size: 24px;
+.question-number {
+    font-weight: bold;
+}
+
+.score {
+    font-weight: bold;
+}
+
+h2 {
+   text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+label {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.options {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 6px;
+    margin-bottom: 6px;
+    border-radius: 3px;
+}
+
+.options:nth-child(1) {
+    background-color: #3866AF
+}
+.options:nth-child(2) {
+    background-color: #387AAF
+}
+.options:nth-child(3) {
+    background-color: #3894AF
+}
+.options:nth-child(4) {
+    background-color: #38A9AF
+}
+
+button {
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: none;
+    background-color: #095ee8;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 40px
+}
+button:hover, button:focus {
+    background-color: #BF0A30;
+    color: #ffffff;
 }
 
 .initial {

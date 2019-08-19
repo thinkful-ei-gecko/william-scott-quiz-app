@@ -41,25 +41,25 @@ function generateQuestionHtml (game, dataTable) {
   return `
     <h2 class='question'>${dataTable[game.questionNumber].question}</h2>
     <form class = 'questions'>
-        <div>
-            <input type="radio" name="option" id="option one" value="${dataTable[game.questionNumber].answers[answerIndexArray[0]]}" required>
-            <label for='option one'>${dataTable[game.questionNumber].answers[answerIndexArray[0]]}</label>
-        </div>
-        <div>
-            <input type="radio" name="option" id="option two" value="${dataTable[game.questionNumber].answers[answerIndexArray[1]]}" required>
-            <label for="option two">${dataTable[game.questionNumber].answers[answerIndexArray[1]]}</label>
-        </div>
-        <div>
-            <input type="radio" name="option" id="option three" value="${dataTable[game.questionNumber].answers[answerIndexArray[2]]}" required>
-            <label for="option three">${dataTable[game.questionNumber].answers[answerIndexArray[2]]}</label>
-        </div>
-        <div>
-            <input type="radio" name="option" id="option four" value="${dataTable[game.questionNumber].answers[answerIndexArray[3]]}" required>
-            <label for="option four">${dataTable[game.questionNumber].answers[answerIndexArray[3]]}</label>
-        </div>
-        <div>
-            <button type='submit' class='submit-answer-button'>Submit answer</button>
-        </div>
+      <div class="options">
+          <input type="radio" name="option" id="option-one" value="${dataTable[game.questionNumber].answers[answerIndexArray[0]]}" required>
+          <label for='option-one'>${dataTable[game.questionNumber].answers[answerIndexArray[0]]}</label>
+      </div>
+      <div class="options">
+          <input type="radio" name="option" id="option-two" value="${dataTable[game.questionNumber].answers[answerIndexArray[1]]}" required>
+          <label for="option-two">${dataTable[game.questionNumber].answers[answerIndexArray[1]]}</label>
+      </div>
+      <div class="options">
+          <input type="radio" name="option" id="option-three" value="${dataTable[game.questionNumber].answers[answerIndexArray[2]]}" required>
+          <label for="option-three">${dataTable[game.questionNumber].answers[answerIndexArray[2]]}</label>
+      </div>
+      <div class="options">
+          <input type="radio" name="option" id="option-four" value="${dataTable[game.questionNumber].answers[answerIndexArray[3]]}" required>
+          <label for="option-four">${dataTable[game.questionNumber].answers[answerIndexArray[3]]}</label>
+      </div>
+      <div>
+          <button type='submit' class='submit-answer-button'>Submit answer</button>
+      </div>
     </form>`;
 }
 
