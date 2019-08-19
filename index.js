@@ -91,7 +91,7 @@ function showWrongAnswer (game, dataTable) {
   return `
     <form class='form-next-question'>
         <h2>You Got This Wrong</h2>
-        <p>The correct answer is ${dataTable[game.questionNumber].correctAnswer}</p>
+        <p class='feedback'>The correct answer is ${dataTable[game.questionNumber].correctAnswer.toLowerCase()}</p>
         <button type='submit' class='next-button'>Next</button>
     </form>`;
 }
@@ -126,7 +126,7 @@ function finalResultHtml (game) {
   return `
     <form class='form-final-result'>
         <h2>You Got ${game.score} Out Of ${game.questionNumber}</h2>
-        <p>Do You Want to Try Again?</p>
+        <p class='reset-prompt'>Do You Want to Try Again?</p>
         <button type='submit' class='restart-button'>Restart Quiz</button>
     </form>`;
 }

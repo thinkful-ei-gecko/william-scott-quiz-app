@@ -1,7 +1,7 @@
 'use strict';
 
 let currentTable = [];
-let questionIndexArray = [0, 1, 2, 3, 4];
+let questionIndexArray = [0, 1, 2, 3, 4, 5];
 let answerIndexArray = [0, 1, 2, 3];
 
 const STORE = [{
