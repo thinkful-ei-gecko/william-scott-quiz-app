@@ -40,7 +40,7 @@ function displayScore(game) {
 function generateQuestionHtml (game, dataTable) {
   return `
     <h2 class='question'>${dataTable[game.questionNumber].question}</h2>
-    <form class = 'questions'>
+    <form class ='questions'>
       <div class="options">
           <input type="radio" name="option" id="option-one" value="${dataTable[game.questionNumber].answers[answerIndexArray[0]]}" required>
           <label for='option-one'>${dataTable[game.questionNumber].answers[answerIndexArray[0]]}</label>
